@@ -98,13 +98,72 @@
         linear-gradient(var(--c) 0 0) bottom/100% 50% no-repeat;
         clip-path: polygon(-43% 0,50% 91%, 143% 0);
     }
+    
+    @keyframes descerCoracao {
+        0% {
+            transform: scale(2.5) translateY(200px); /* Começam fora da tela no topo */
+            opacity: 1;
+        }
+        20%{
+            transform: scale(1.5);
+            opacity: 1;
+        }
+        40%{
+            transform: scale(2.5);
+            opacity: 1;
+        }
+        60% {
+            transform: scale(1.5);
+            opacity: 1;
+        }
+        80%{
+            transform: scale(2.5);
+            opacity: 1;
+        }
+        100% {
+            transform: scale(1.5) translateY(100vh); /* Descem até o final da tela */
+            opacity: 0;
+        }
+    }
+
+    .coracao {
+        --c: red;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        aspect-ratio: 1;
+        background:
+        radial-gradient(at 70% 31%,var(--c) 29%,#0000 30%),
+        radial-gradient(at 30% 31%,var(--c) 29%,#0000 30%),
+        linear-gradient(var(--c) 0 0) bottom/100% 50% no-repeat;
+        clip-path: polygon(-43% 0,50% 91%, 143% 0);
+        animation: descerCoracao 3s ease-in forwards;
+        pointer-events: none;
+        z-index: 999;
+        opacity: 1;
+    }
+
+    .coracao::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        clip-path: circle(50% at 50% 50%); /* A parte superior do coração */
+    }
+
+
+
+
 
     </style>
 </head>
 <body>
+    <div class="coracao"></div>
+
     <div class="container">
         <h1>Nosso Amor ❤️</h1>
-        
         <div class="carousel">
             <div class="slides">
                 <img src="images/MyLove1.jpg" class="active">
@@ -123,75 +182,108 @@
     </div>
     
     <script>
+        // Função para criar os corações flutuando
+        // Função para criar os corações descendo
+        // Função para criar os corações descendo do topo da página
+        function criarCoracoes(event) {
+            const container = document.querySelector('.container');
+            
+            // Gerar múltiplos corações
+            for (let i = 0; i < 30; i++) {
+                const coracao = document.createElement('div');
+                coracao.classList.add('coracao');
+                
+                // Definir a posição inicial dos corações no topo da página
+                const posX = Math.random() * window.innerWidth; // Posição aleatória na largura da tela
+                const posY = Math.random() * window.innerHeight; // Começam fora da tela no topo
+
+                // Coloca o coração no topo da tela, com variação na posição X
+                coracao.style.left = `${posX}px`;
+                coracao.style.top = `${posY}px`;
+
+                // Adiciona o coração ao container
+                container.appendChild(coracao);
+
+                // Remover o coração após a animação
+                setTimeout(() => {
+                    coracao.remove();
+                }, 3000); // Tempo para a animação completar
+            }
+        }
+
+        // Adicionar o evento de clique aos quadrados
+        document.querySelectorAll('.quadrado').forEach((quadrado) => {
+            quadrado.addEventListener('click', criarCoracoes);
+        });
+
+
+
         function atualizarContador() {
-        // Data de início no horário de Brasília
-        const dataInicio = new Date("2025-03-12T00:00:00-03:00"); // Horário UTC-3
-        const agora = new Date();
+            // Data de início no horário de Brasília
+            const dataInicio = new Date("2025-03-12T00:00:00-03:00"); // Horário UTC-3
+            const agora = new Date();
 
-        // Ajuste de fuso horário para Brasília (UTC-3)
-        const offsetBrasilia = -3 * 60; // UTC-3 em minutos
-        const agoraBrasilia = new Date(agora.getTime() + (agora.getTimezoneOffset() + offsetBrasilia) * 60000);
+            // Ajuste de fuso horário para Brasília (UTC-3)
+            const offsetBrasilia = -3 * 60; // UTC-3 em minutos
+            const agoraBrasilia = new Date(agora.getTime() + (agora.getTimezoneOffset() + offsetBrasilia) * 60000);
 
-        // Calculando a diferença total em milissegundos
-        let diferenca = agoraBrasilia - dataInicio;
+            // Calculando a diferença total em milissegundos
+            let diferenca = agoraBrasilia - dataInicio;
 
-        // Convertendo a diferença em milissegundos para dias, horas, minutos e segundos
-        let anos = Math.floor(diferenca / (365.25 * 24 * 60 * 60 * 1000)); // Aproximando para anos (com anos bissextos)
-        diferenca -= anos * (365.25 * 24 * 60 * 60 * 1000);
+            // Convertendo a diferença em milissegundos para dias, horas, minutos e segundos
+            let anos = Math.floor(diferenca / (365.25 * 24 * 60 * 60 * 1000)); // Aproximando para anos (com anos bissextos)
+            diferenca -= anos * (365.25 * 24 * 60 * 60 * 1000);
 
-        let meses = Math.floor(diferenca / (30 * 24 * 60 * 60 * 1000)); // Aproximação de meses
-        diferenca -= meses * (30 * 24 * 60 * 60 * 1000);
+            let meses = Math.floor(diferenca / (30 * 24 * 60 * 60 * 1000)); // Aproximação de meses
+            diferenca -= meses * (30 * 24 * 60 * 60 * 1000);
 
-        let dias = Math.floor(diferenca / (24 * 60 * 60 * 1000)); // Convertendo para dias
-        diferenca -= dias * (24 * 60 * 60 * 1000);
+            let dias = Math.floor(diferenca / (24 * 60 * 60 * 1000)); // Convertendo para dias
+            diferenca -= dias * (24 * 60 * 60 * 1000);
 
-        let horas = Math.floor(diferenca / (60 * 60 * 1000)); // Convertendo para horas
-        diferenca -= horas * (60 * 60 * 1000);
+            let horas = Math.floor(diferenca / (60 * 60 * 1000)); // Convertendo para horas
+            diferenca -= horas * (60 * 60 * 1000);
 
-        let minutos = Math.floor(diferenca / (60 * 1000)); // Convertendo para minutos
-        diferenca -= minutos * (60 * 1000);
+            let minutos = Math.floor(diferenca / (60 * 1000)); // Convertendo para minutos
+            diferenca -= minutos * (60 * 1000);
 
-        let segundos = Math.floor(diferenca / 1000); // Convertendo para segundos
+            let segundos = Math.floor(diferenca / 1000); // Convertendo para segundos
 
-        // Atualizando os elementos HTML com os resultados
-        let AnoHtml = document.querySelector('#anos');
-        let MesHtml = document.querySelector('#meses');
-        let DiaHtml = document.querySelector('#dias');
-        let HoraHtml = document.querySelector('#horas');
-        let MinutoHtml = document.querySelector('#minutos');
-        let SegundoHtml = document.querySelector('#segundos');
+            // Atualizando os elementos HTML com os resultados
+            let AnoHtml = document.querySelector('#anos');
+            let MesHtml = document.querySelector('#meses');
+            let DiaHtml = document.querySelector('#dias');
+            let HoraHtml = document.querySelector('#horas');
+            let MinutoHtml = document.querySelector('#minutos');
+            let SegundoHtml = document.querySelector('#segundos');
 
-        // Verificando se as unidades de tempo devem ser ocultadas (quando o valor for 0)
-        if (anos === 0) {
-            AnoHtml.style.display = 'none';
-        } else {
-            AnoHtml.style.display = 'block';
-            AnoHtml.innerHTML = `${anos} <br>ano${anos > 1 ? 's' : ''}`;
-        }
+            // Verificando se as unidades de tempo devem ser ocultadas (quando o valor for 0)
+            if (anos === 0) {
+                AnoHtml.style.display = 'none';
+            } else {
+                AnoHtml.style.display = 'block';
+                AnoHtml.innerHTML = `${anos} <br>ano${anos > 1 ? 's' : ''}`;
+            }
 
-        if (meses === 0) {
-            MesHtml.style.display = 'none';
-        } else {
-            MesHtml.style.display = 'block';
-            MesHtml.innerHTML = `${meses} <br>mês${meses > 1 ? 'es' : ''}`;
-        }
+            if (meses === 0) {
+                MesHtml.style.display = 'none';
+            } else {
+                MesHtml.style.display = 'block';
+                MesHtml.innerHTML = `${meses} <br>mês${meses > 1 ? 'es' : ''}`;
+            }
 
-        if (dias === 0) {
-            DiaHtml.style.display = 'none';
-        } else {
-            DiaHtml.style.display = 'block';
-            DiaHtml.innerHTML = `${dias} <br>dia${dias > 1 ? 's' : ''}`;
-        }
+            if (dias === 0) {
+                DiaHtml.style.display = 'none';
+            } else {
+                DiaHtml.style.display = 'block';
+                DiaHtml.innerHTML = `${dias} <br>dia${dias > 1 ? 's' : ''}`;
+            }
 
-        HoraHtml.innerHTML = `${horas} <br>hora${horas > 1 ? 's' : ''}`;
-        MinutoHtml.innerHTML = `${minutos} <br>minuto${minutos > 1 ? 's' : ''}`;
-        SegundoHtml.innerHTML = `${segundos} <br>segundo${segundos > 1 ? 's' : ''}`;
+            HoraHtml.innerHTML = `${horas} <br>hora${horas > 1 ? 's' : ''}`;
+            MinutoHtml.innerHTML = `${minutos} <br>minuto${minutos > 1 ? 's' : ''}`;
+            SegundoHtml.innerHTML = `${segundos} <br>segundo${segundos > 1 ? 's' : ''}`;
     }
-
-    setInterval(atualizarContador, 1000);
-    atualizarContador();
-
-
+        setInterval(atualizarContador, 1000);
+        atualizarContador();
         // Carrossel de imagens
         let currentIndex = 0;
         const imagens = document.querySelectorAll(".slides img");
@@ -201,6 +293,7 @@
             imagens[currentIndex].classList.add("active");
         }
         setInterval(mudarSlide, 3000);
+    
     </script>
 </body>
 </html>
