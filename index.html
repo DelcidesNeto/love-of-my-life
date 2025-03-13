@@ -24,7 +24,7 @@
             background: #1e1e1e;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+            box-shadow: 0px 4px 10px #ffffff1a;
         }
         h1 {
             color: #ff4d6d;
@@ -69,24 +69,36 @@
             margin-top: 10px;
         }
         .quadrado {
-            width: 110px;
-            height: auto;
-            background-color: #ff4d6d;
-            margin: 5px;
-            border-radius: 5px;
-            text-align: center;
-            line-height: 50px;
-            font-size: 20px;
-            font-weight: bold;
-            color: #fff;
-            display: block;
-            margin: 10px auto;
-            line-height: 1;
-            padding: 10px;
-        }
-        .quadrado:hover {
-            background-color: #ff6f8d;
-        }
+        cursor: pointer;
+        width: 110px;
+        height: auto; /* Tamanho fixo para o quadrado */
+        background-color: #ff4d6d;
+        margin: 5px;
+        border-radius: 5px;
+        text-align: center;
+        line-height: 50px;
+        font-size: 20px;
+        font-weight: bold;
+        color: #fff;
+        display: block;
+        margin: 10px auto;
+        line-height: 1;
+        padding: 10px;
+        position: relative; /* Necessário para posicionar o coração dentro do quadrado */
+        overflow: hidden;
+        transition: all 0.3s ease; /* Transição suave para o hover */
+    }
+
+    .quadrado:hover {
+        --c: red;
+        aspect-ratio: 1;
+        background:
+        radial-gradient(at 70% 31%,var(--c) 29%,#0000 30%),
+        radial-gradient(at 30% 31%,var(--c) 29%,#0000 30%),
+        linear-gradient(var(--c) 0 0) bottom/100% 50% no-repeat;
+        clip-path: polygon(-43% 0,50% 91%, 143% 0);
+    }
+
     </style>
 </head>
 <body>
@@ -95,8 +107,8 @@
         
         <div class="carousel">
             <div class="slides">
-                <img src="images/MyLove1.jp" class="active">
-                <img src="images/MyLove2.jp">
+                <img src="images/MyLove1.jpg" class="active">
+                <img src="images/MyLove2.jpg">
             </div>
         </div>
         
@@ -104,6 +116,7 @@
         <div class="quadrado" id="anos"></div>
         <div class="quadrado" id="meses"></div>
         <div class="quadrado" id="dias"></div>
+        <div class="quadrado" id="horas"></div>
         <div class="quadrado" id="minutos"></div>
         <div class="quadrado" id="segundos"></div>
         <div id="contador"></div>
@@ -111,77 +124,73 @@
     
     <script>
         function atualizarContador() {
-            const dataInicio = new Date("2020-01-01T00:00:00"); // Ajuste a data de início aqui
-            const agora = new Date();
-            let anos = agora.getFullYear() - dataInicio.getFullYear();
-            let meses = agora.getMonth() - dataInicio.getMonth();
-            let dias = agora.getDate() - dataInicio.getDate();
-            let horas = agora.getHours() - dataInicio.getHours();
-            let minutos = agora.getMinutes() - dataInicio.getMinutes();
-            let segundos = agora.getSeconds() - dataInicio.getSeconds();
-            let AnoHtml = document.querySelector('#anos');
-            let MesHtml = document.querySelector('#meses');
-            let DiaHtml = document.querySelector('#dias');
-            let MinutoHtml = document.querySelector('#minutos');
-            let SegundoHtml = document.querySelector('#segundos');
-            
-            if (segundos < 0) {
-                segundos += 60;
-                minutos--;
-            }
-            if (minutos < 0) {
-                minutos += 60;
-                horas--;
-            }
-            if (horas < 0) {
-                horas += 24;
-                dias--;
-            }
-            if (dias < 0) {
-                let ultimoMes = new Date(agora.getFullYear(), agora.getMonth(), 0).getDate();
-                dias += ultimoMes;
-                meses--;
-            }
-            if (meses < 0) {
-                meses += 12;
-                anos--;
-            }
-            if (anos > 1){
-                AnoHtml.innerHTML = `${anos}<br>anos`
-            } else{
-                AnoHtml.innerHTML = `${anos}<br>ano`;
-            }
-            if (meses > 1){
-                MesHtml.innerHTML = `${meses}<br>meses`
-            } else{
-                MesHtml.innerHTML = `${meses}<br>mês`;
-            }
-            if (dias > 1){
-                DiaHtml.innerHTML = `${dias}<br>dias`
-            } else{
-                DiaHtml.innerHTML = `${dias}<br>dia`;
-            }
-            if (horas > 1){
-                MinutoHtml.innerHTML = `${horas}<br>horas`
-            } else{
-                MinutoHtml.innerHTML = `${horas}<br>hora`;
-            }
-            if (minutos > 1){
-                SegundoHtml.innerHTML = `${minutos}<br>minutos`
-            } else{
-                SegundoHtml.innerHTML = `${minutos}<br>minuto`;
-            }
-            if (segundos > 1){
-                SegundoHtml.innerHTML = `${segundos}<br>segundos`
-            } else{
-                SegundoHtml.innerHTML = `${segundos}<br>segundo`;
-            }
-            
-            document.getElementById("contador").innerHTML =
-                `${anos} anos, ${meses} meses, ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos`;
+        // Data de início no horário de Brasília
+        const dataInicio = new Date("2025-03-12T00:00:00-03:00"); // Horário UTC-3
+        const agora = new Date();
+
+        // Ajuste de fuso horário para Brasília (UTC-3)
+        const offsetBrasilia = -3 * 60; // UTC-3 em minutos
+        const agoraBrasilia = new Date(agora.getTime() + (agora.getTimezoneOffset() + offsetBrasilia) * 60000);
+
+        // Calculando a diferença total em milissegundos
+        let diferenca = agoraBrasilia - dataInicio;
+
+        // Convertendo a diferença em milissegundos para dias, horas, minutos e segundos
+        let anos = Math.floor(diferenca / (365.25 * 24 * 60 * 60 * 1000)); // Aproximando para anos (com anos bissextos)
+        diferenca -= anos * (365.25 * 24 * 60 * 60 * 1000);
+
+        let meses = Math.floor(diferenca / (30 * 24 * 60 * 60 * 1000)); // Aproximação de meses
+        diferenca -= meses * (30 * 24 * 60 * 60 * 1000);
+
+        let dias = Math.floor(diferenca / (24 * 60 * 60 * 1000)); // Convertendo para dias
+        diferenca -= dias * (24 * 60 * 60 * 1000);
+
+        let horas = Math.floor(diferenca / (60 * 60 * 1000)); // Convertendo para horas
+        diferenca -= horas * (60 * 60 * 1000);
+
+        let minutos = Math.floor(diferenca / (60 * 1000)); // Convertendo para minutos
+        diferenca -= minutos * (60 * 1000);
+
+        let segundos = Math.floor(diferenca / 1000); // Convertendo para segundos
+
+        // Atualizando os elementos HTML com os resultados
+        let AnoHtml = document.querySelector('#anos');
+        let MesHtml = document.querySelector('#meses');
+        let DiaHtml = document.querySelector('#dias');
+        let HoraHtml = document.querySelector('#horas');
+        let MinutoHtml = document.querySelector('#minutos');
+        let SegundoHtml = document.querySelector('#segundos');
+
+        // Verificando se as unidades de tempo devem ser ocultadas (quando o valor for 0)
+        if (anos === 0) {
+            AnoHtml.style.display = 'none';
+        } else {
+            AnoHtml.style.display = 'block';
+            AnoHtml.innerHTML = `${anos} <br>ano${anos > 1 ? 's' : ''}`;
         }
-        setInterval(atualizarContador, 1000);
-        atualizarContador();
+
+        if (meses === 0) {
+            MesHtml.style.display = 'none';
+        } else {
+            MesHtml.style.display = 'block';
+            MesHtml.innerHTML = `${meses} <br>mês${meses > 1 ? 'es' : ''}`;
+        }
+
+        if (dias === 0) {
+            DiaHtml.style.display = 'none';
+        } else {
+            DiaHtml.style.display = 'block';
+            DiaHtml.innerHTML = `${dias} <br>dia${dias > 1 ? 's' : ''}`;
+        }
+
+        HoraHtml.innerHTML = `${horas} <br>hora${horas > 1 ? 's' : ''}`;
+        MinutoHtml.innerHTML = `${minutos} <br>minuto${minutos > 1 ? 's' : ''}`;
+        SegundoHtml.innerHTML = `${segundos} <br>segundo${segundos > 1 ? 's' : ''}`;
+    }
+
+    setInterval(atualizarContador, 1000);
+    atualizarContador();
+
 
         // Carrossel de imagens
         let currentIndex = 0;
