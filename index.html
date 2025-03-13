@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nosso Amor</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #121212;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+        }
+        h1 {
+            color: #ff4d6d;
+        }
+        .carousel {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            overflow: hidden;
+            border-radius: 10px;
+            margin: 20px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .slides {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+        .slides img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            position: absolute;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .slides img.active {
+            opacity: 1;
+        }
+        h2 {
+            margin-top: 10px;
+            color: #ff4d6d;
+        }
+        #contador {
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            margin-top: 10px;
+        }
+        .quadrado {
+            width: 110px;
+            height: auto;
+            background-color: #ff4d6d;
+            margin: 5px;
+            border-radius: 5px;
+            text-align: center;
+            line-height: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #fff;
+            display: block;
+            margin: 10px auto;
+            line-height: 1;
+            padding: 10px;
+        }
+        .quadrado:hover {
+            background-color: #ff6f8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Nosso Amor ❤️</h1>
+        
+        <div class="carousel">
+            <div class="slides">
+                <img src="images/MyLove1.jp" class="active">
+                <img src="images/MyLove2.jp">
+            </div>
+        </div>
+        
+        <h2>Estamos juntos há:</h2>
+        <div class="quadrado" id="anos"></div>
+        <div class="quadrado" id="meses"></div>
+        <div class="quadrado" id="dias"></div>
+        <div class="quadrado" id="minutos"></div>
+        <div class="quadrado" id="segundos"></div>
+        <div id="contador"></div>
+    </div>
+    
+    <script>
+        function atualizarContador() {
+            const dataInicio = new Date("2020-01-01T00:00:00"); // Ajuste a data de início aqui
+            const agora = new Date();
+            let anos = agora.getFullYear() - dataInicio.getFullYear();
+            let meses = agora.getMonth() - dataInicio.getMonth();
+            let dias = agora.getDate() - dataInicio.getDate();
+            let horas = agora.getHours() - dataInicio.getHours();
+            let minutos = agora.getMinutes() - dataInicio.getMinutes();
+            let segundos = agora.getSeconds() - dataInicio.getSeconds();
+            let AnoHtml = document.querySelector('#anos');
+            let MesHtml = document.querySelector('#meses');
+            let DiaHtml = document.querySelector('#dias');
+            let MinutoHtml = document.querySelector('#minutos');
+            let SegundoHtml = document.querySelector('#segundos');
+            
+            if (segundos < 0) {
+                segundos += 60;
+                minutos--;
+            }
+            if (minutos < 0) {
+                minutos += 60;
+                horas--;
+            }
+            if (horas < 0) {
+                horas += 24;
+                dias--;
+            }
+            if (dias < 0) {
+                let ultimoMes = new Date(agora.getFullYear(), agora.getMonth(), 0).getDate();
+                dias += ultimoMes;
+                meses--;
+            }
+            if (meses < 0) {
+                meses += 12;
+                anos--;
+            }
+            if (anos > 1){
+                AnoHtml.innerHTML = `${anos}<br>anos`
+            } else{
+                AnoHtml.innerHTML = `${anos}<br>ano`;
+            }
+            if (meses > 1){
+                MesHtml.innerHTML = `${meses}<br>meses`
+            } else{
+                MesHtml.innerHTML = `${meses}<br>mês`;
+            }
+            if (dias > 1){
+                DiaHtml.innerHTML = `${dias}<br>dias`
+            } else{
+                DiaHtml.innerHTML = `${dias}<br>dia`;
+            }
+            if (horas > 1){
+                MinutoHtml.innerHTML = `${horas}<br>horas`
+            } else{
+                MinutoHtml.innerHTML = `${horas}<br>hora`;
+            }
+            if (minutos > 1){
+                SegundoHtml.innerHTML = `${minutos}<br>minutos`
+            } else{
+                SegundoHtml.innerHTML = `${minutos}<br>minuto`;
+            }
+            if (segundos > 1){
+                SegundoHtml.innerHTML = `${segundos}<br>segundos`
+            } else{
+                SegundoHtml.innerHTML = `${segundos}<br>segundo`;
+            }
+            
+            document.getElementById("contador").innerHTML =
+                `${anos} anos, ${meses} meses, ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos`;
+        }
+        setInterval(atualizarContador, 1000);
+        atualizarContador();
+
+        // Carrossel de imagens
+        let currentIndex = 0;
+        const imagens = document.querySelectorAll(".slides img");
+        function mudarSlide() {
+            imagens[currentIndex].classList.remove("active");
+            currentIndex = (currentIndex + 1) % imagens.length;
+            imagens[currentIndex].classList.add("active");
+        }
+        setInterval(mudarSlide, 3000);
+    </script>
+</body>
+</html>
