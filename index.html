@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nosso Amor</title>
+    <title>My Love ❤️</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         * {
@@ -19,7 +19,7 @@
             padding: 20px;
         }
         .container {
-            max-width: 600px;
+            max-width: 500px;
             margin: auto;
             background: #1e1e1e;
             padding: 20px;
@@ -160,7 +160,6 @@
     </style>
 </head>
 <body>
-    <div class="coracao"></div>
 
     <div class="container">
         <h1>Nosso Amor ❤️</h1>
@@ -194,8 +193,8 @@
                 coracao.classList.add('coracao');
                 
                 // Definir a posição inicial dos corações no topo da página
-                const posX = Math.random() * window.innerWidth; // Posição aleatória na largura da tela
-                const posY = Math.random() * window.innerHeight; // Começam fora da tela no topo
+                const posX = Math.random() * container.clientWidth; // Posição aleatória na largura da tela
+                const posY = Math.random() * container.clientHeight; // Começam fora da tela no topo
 
                 // Coloca o coração no topo da tela, com variação na posição X
                 coracao.style.left = `${posX}px`;
