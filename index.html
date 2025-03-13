@@ -19,7 +19,7 @@
             padding: 20px;
         }
         .container {
-            max-width: 500px;
+            max-width: 600px;
             margin: auto;
             background: #1e1e1e;
             padding: 20px;
@@ -172,7 +172,7 @@
             </div>
         </div>
         
-        <h2>Estamos juntos há:</h2>
+        <h2>Nos amamos há...</h2>
         <div class="quadrado" id="anos"></div>
         <div class="quadrado" id="meses"></div>
         <div class="quadrado" id="dias"></div>
@@ -220,34 +220,49 @@
 
 
         function atualizarContador() {
-            // Data de início no horário de Brasília
-            const dataInicio = new Date("2025-03-12T00:00:00-03:00"); // Horário UTC-3
+            const dataInicio = new Date("2025-03-12T00:00:00");
             const agora = new Date();
+    
+            let anos = agora.getFullYear() - dataInicio.getFullYear();
+            let meses = agora.getMonth() - dataInicio.getMonth();
+            let dias = agora.getDate() - dataInicio.getDate();
+    
+            // Ajuste para anos e meses
+            if (meses < 0) {
+                anos--;
+                meses += 12;
+            }
+    
+            // Ajuste para dias negativos
+            if (dias < 0) {
+                meses--;
+                const ultimoDiaMesAnterior = new Date(agora.getFullYear(), agora.getMonth(), 0).getDate();
+                dias += ultimoDiaMesAnterior;
+            }
+    
+            if (meses < 0) {
+                anos--;
+                meses += 12;
+            }
+    
+            // Calculando horas, minutos e segundos
+            let horas = agora.getHours() - dataInicio.getHours();
+            let minutos = agora.getMinutes() - dataInicio.getMinutes();
+            let segundos = agora.getSeconds() - dataInicio.getSeconds();
 
-            // Ajuste de fuso horário para Brasília (UTC-3)
-            const offsetBrasilia = -3 * 60; // UTC-3 em minutos
-            const agoraBrasilia = new Date(agora.getTime() + (agora.getTimezoneOffset() + offsetBrasilia) * 60000);
-
-            // Calculando a diferença total em milissegundos
-            let diferenca = agoraBrasilia - dataInicio;
-
-            // Convertendo a diferença em milissegundos para dias, horas, minutos e segundos
-            let anos = Math.floor(diferenca / (365.25 * 24 * 60 * 60 * 1000)); // Aproximando para anos (com anos bissextos)
-            diferenca -= anos * (365.25 * 24 * 60 * 60 * 1000);
-
-            let meses = Math.floor(diferenca / (30 * 24 * 60 * 60 * 1000)); // Aproximação de meses
-            diferenca -= meses * (30 * 24 * 60 * 60 * 1000);
-
-            let dias = Math.floor(diferenca / (24 * 60 * 60 * 1000)); // Convertendo para dias
-            diferenca -= dias * (24 * 60 * 60 * 1000);
-
-            let horas = Math.floor(diferenca / (60 * 60 * 1000)); // Convertendo para horas
-            diferenca -= horas * (60 * 60 * 1000);
-
-            let minutos = Math.floor(diferenca / (60 * 1000)); // Convertendo para minutos
-            diferenca -= minutos * (60 * 1000);
-
-            let segundos = Math.floor(diferenca / 1000); // Convertendo para segundos
+            // Ajustes para valores negativos
+            if (segundos < 0) {
+                minutos--;
+                segundos += 60;
+            }
+            if (minutos < 0) {
+                horas--;
+                minutos += 60;
+            }
+            if (horas < 0) {
+                dias--;
+                horas += 24;
+            }
 
             // Atualizando os elementos HTML com os resultados
             let AnoHtml = document.querySelector('#anos');
@@ -262,27 +277,44 @@
                 AnoHtml.style.display = 'none';
             } else {
                 AnoHtml.style.display = 'block';
-                AnoHtml.innerHTML = `${anos} <br>ano${anos > 1 ? 's' : ''}`;
+                AnoHtml.innerHTML = `${anos < 10 ? `0${anos}` : anos} <br>ano${anos > 1 ? 's' : ''}`;
             }
 
             if (meses === 0) {
                 MesHtml.style.display = 'none';
             } else {
                 MesHtml.style.display = 'block';
-                MesHtml.innerHTML = `${meses} <br>mês${meses > 1 ? 'es' : ''}`;
+                MesHtml.innerHTML = `${meses < 10 ? `0${meses}`: meses} <br>mês${meses > 1 ? 'es' : ''}`;
             }
 
             if (dias === 0) {
                 DiaHtml.style.display = 'none';
             } else {
                 DiaHtml.style.display = 'block';
-                DiaHtml.innerHTML = `${dias} <br>dia${dias > 1 ? 's' : ''}`;
+                DiaHtml.innerHTML = `${dias < 10 ? `0${dias}` : dias} <br>dia${dias > 1 ? 's' : ''}`;
+            }
+    
+            if (horas === 0){
+                HoraHtml.style.display = 'none';
+            } else {
+                HoraHtml.style.display = 'block';
+                HoraHtml.innerHTML = `${horas < 10 ? `0${horas}` : horas} <br>hora${horas > 1 ? 's' : ''}`;
             }
 
-            HoraHtml.innerHTML = `${horas} <br>hora${horas > 1 ? 's' : ''}`;
-            MinutoHtml.innerHTML = `${minutos} <br>minuto${minutos > 1 ? 's' : ''}`;
-            SegundoHtml.innerHTML = `${segundos} <br>segundo${segundos > 1 ? 's' : ''}`;
-    }
+            if (minutos === 0){
+                MinutoHtml.style.display = 'none';
+            } else {
+                MinutoHtml.style.display = 'block';
+                MinutoHtml.innerHTML = `${minutos < 10 ? `0${minutos}`: minutos} <br>minuto${minutos > 1 ? 's' : ''}`;
+            }
+    
+            if (segundos === 0){
+                SegundoHtml.style.display = 'none';
+            } else {
+                SegundoHtml.style.display = 'block';
+                SegundoHtml.innerHTML = `${segundos < 10 ? `0${segundos}` : segundos} <br>segundo${segundos > 1 ? 's' : ''}`;
+            }
+        }
         setInterval(atualizarContador, 1000);
         atualizarContador();
         // Carrossel de imagens
