@@ -255,7 +255,7 @@ audio.visible {
 
 /* Container da carta */
 .carta-container {
-    width: 300px;
+    width: 350px;
     height: 400px;
     perspective: 1000px;
     position: relative;
