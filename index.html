@@ -5,173 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Love ❤️</title>
     <link rel="stylesheet" href="styles.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-        body {
-            background-color: #121212;
-            color: #fff;
-            text-align: center;
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background: #1e1e1e;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px #ffffff1a;
-            position: relative;
-            overflow: hidden;
-        }
-        h1 {
-            color: #ff4d6d;
-        }
-        .carousel {
-            position: relative;
-            width: 100%;
-            height: 300px;
-            overflow: hidden;
-            border-radius: 10px;
-            margin: 20px auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .slides {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-        }
-        .slides img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: contain;
-            position: absolute;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
-        .slides img.active {
-            opacity: 1;
-        }
-        h2 {
-            margin-top: 10px;
-            color: #ff4d6d;
-        }
-        #contador {
-            font-size: 20px;
-            font-weight: bold;
-            color: #fff;
-            margin-top: 10px;
-        }
-        .quadrado {
-        cursor: pointer;
-        width: 110px;
-        height: auto; /* Tamanho fixo para o quadrado */
-        background-color: #ff4d6d;
-        margin: 5px;
-        border-radius: 5px;
-        text-align: center;
-        line-height: 50px;
-        font-size: 20px;
-        font-weight: bold;
-        color: #fff;
-        display: block;
-        margin: 10px auto;
-        line-height: 1;
-        padding: 10px;
-        position: relative; /* Necessário para posicionar o coração dentro do quadrado */
-        overflow: hidden;
-        transition: all 0.3s ease; /* Transição suave para o hover */
-    }
-
-    .quadrado:hover {
-        --c: red;
-        aspect-ratio: 1;
-        background:
-        radial-gradient(at 70% 31%,var(--c) 29%,#0000 30%),
-        radial-gradient(at 30% 31%,var(--c) 29%,#0000 30%),
-        linear-gradient(var(--c) 0 0) bottom/100% 50% no-repeat;
-        clip-path: polygon(-43% 0,50% 91%, 143% 0);
-    }
-    
-    @keyframes descerCoracao {
-        0% {
-            transform: scale(2.5) translateY(200px); /* Começam fora da tela no topo */
-            opacity: 1;
-        }
-        20%{
-            transform: scale(1.5);
-            opacity: 1;
-        }
-        40%{
-            transform: scale(2.5);
-            opacity: 1;
-        }
-        60% {
-            transform: scale(1.5);
-            opacity: 1;
-        }
-        80%{
-            transform: scale(2.5);
-            opacity: 1;
-        }
-        100% {
-            transform: scale(1.5) translateY(100vh); /* Descem até o final da tela */
-            opacity: 0;
-        }
-    }
-
-    .coracao {
-        --c: red;
-        position: absolute;
-        width: 30px;
-        height: 30px;
-        aspect-ratio: 1;
-        background:
-        radial-gradient(at 70% 31%,var(--c) 29%,#0000 30%),
-        radial-gradient(at 30% 31%,var(--c) 29%,#0000 30%),
-        linear-gradient(var(--c) 0 0) bottom/100% 50% no-repeat;
-        clip-path: polygon(-43% 0,50% 91%, 143% 0);
-        animation: descerCoracao 3s ease-in forwards;
-        pointer-events: none;
-        z-index: 999;
-        opacity: 1;
-    }
-
-    .coracao::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        clip-path: circle(50% at 50% 50%); /* A parte superior do coração */
-    }
-
-
-
-
-
-    </style>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 
     <div class="container">
-        <h1>Nosso Amor ❤️</h1>
+        <h1 class="topo">Nosso Amor ❤️</h1>
         <div class="carousel">
-            <div class="slides">
-                <img src="images/MyLove1.jpg" class="active">
-                <img src="images/MyLove2.jpg">
+            <div class="slides"></div>
+        </div>
+        <div class="coisas-que-amo-nela">
+            <h1>Coisa que amo no meu xuxuzinho<br>😻</h1>
+            <ul class="caracteristicas">
+                <li>❤️Seus olhinhos 👀❤️</li>
+                <li>❤️Seu narizinho 😳❤️</li>
+                <li>❤️Seu sorriso 😁❤️</li>
+                <li>❤️Seu jeitinho 😊❤️</li>
+                <li>❤️Seu cabelo 💁‍♀️✨❤️</li>
+                <li>❤️Sua felicidade 🎉❤️</li>
+                <li>❤️Seus lábios 💋😘❤️</li>
+                <li>❤️Sua vontade de ser melhor 🦁❤️</li>
+                <li>❤️Seu amor por Jesus 🕊️✝️🙏❤️</li>
+                <li>❤️Yamin Nayra <strong>(Não tem emoji pra tamanha perfeição 🤩)</strong>❤️</li>
+            </ul>
+        </div>
+        <div class="musicas-que-me-lembram-ela">
+            <h1>Músicas que lembram a minha nega 🎵</h1>
+            <div class="musicas">
+                <p>Pra sempre Com Você</p>
+                <audio src="musicas/Jorge & Mateus - Pra Sempre Com Você (Como Sempre Feito Nunca) [Vídeo Oficial] [VWRkQARH-9o].mp3" controls></audio>
+            </div>
+            <div class="musicas">
+                <p>Car's Outside</p>
+                <audio src="musicas/James Arthur - Car's Outside (Official Lyric Video) [v27COkZT4GY].mp3" controls></audio>
             </div>
         </div>
-        
         <h2>Nos amamos há...</h2>
         <div class="quadrado" id="anos"></div>
         <div class="quadrado" id="meses"></div>
@@ -179,154 +47,9 @@
         <div class="quadrado" id="horas"></div>
         <div class="quadrado" id="minutos"></div>
         <div class="quadrado" id="segundos"></div>
-        <div id="contador"></div>
-    </div>
-    
-    <script>
-        // Função para criar os corações flutuando
-        // Função para criar os corações descendo
-        // Função para criar os corações descendo do topo da página
-        function criarCoracoes(event) {
-            const container = document.querySelector('.container');
-            
-            // Gerar múltiplos corações
-            for (let i = 0; i < 30; i++) {
-                const coracao = document.createElement('div');
-                coracao.classList.add('coracao');
-                
-                // Definir a posição inicial dos corações no topo da página
-                const posX = Math.random() * container.clientWidth; // Posição aleatória na largura da tela
-                const posY = Math.random() * container.clientHeight; // Começam fora da tela no topo
-
-                // Coloca o coração no topo da tela, com variação na posição X
-                coracao.style.left = `${posX}px`;
-                coracao.style.top = `${posY}px`;
-
-                // Adiciona o coração ao container
-                container.appendChild(coracao);
-
-                // Remover o coração após a animação
-                setTimeout(() => {
-                    coracao.remove();
-                }, 3000); // Tempo para a animação completar
-            }
-        }
-
-        // Adicionar o evento de clique aos quadrados
-        document.querySelectorAll('.quadrado').forEach((quadrado) => {
-            quadrado.addEventListener('click', criarCoracoes);
-        });
-
-
-
-        function atualizarContador() {
-            const dataInicio = new Date("2025-03-12T00:00:00");
-            const agora = new Date();
-    
-            let anos = agora.getFullYear() - dataInicio.getFullYear();
-            let meses = agora.getMonth() - dataInicio.getMonth();
-            let dias = agora.getDate() - dataInicio.getDate();
-    
-            // Ajuste para anos e meses
-            if (meses < 0) {
-                anos--;
-                meses += 12;
-            }
-    
-            // Ajuste para dias negativos
-            if (dias < 0) {
-                meses--;
-                const ultimoDiaMesAnterior = new Date(agora.getFullYear(), agora.getMonth(), 0).getDate();
-                dias += ultimoDiaMesAnterior;
-            }
-    
-            if (meses < 0) {
-                anos--;
-                meses += 12;
-            }
-    
-            // Calculando horas, minutos e segundos
-            let horas = agora.getHours() - dataInicio.getHours();
-            let minutos = agora.getMinutes() - dataInicio.getMinutes();
-            let segundos = agora.getSeconds() - dataInicio.getSeconds();
-
-            // Ajustes para valores negativos
-            if (segundos < 0) {
-                minutos--;
-                segundos += 60;
-            }
-            if (minutos < 0) {
-                horas--;
-                minutos += 60;
-            }
-            if (horas < 0) {
-                dias--;
-                horas += 24;
-            }
-
-            // Atualizando os elementos HTML com os resultados
-            let AnoHtml = document.querySelector('#anos');
-            let MesHtml = document.querySelector('#meses');
-            let DiaHtml = document.querySelector('#dias');
-            let HoraHtml = document.querySelector('#horas');
-            let MinutoHtml = document.querySelector('#minutos');
-            let SegundoHtml = document.querySelector('#segundos');
-
-            // Verificando se as unidades de tempo devem ser ocultadas (quando o valor for 0)
-            if (anos === 0) {
-                AnoHtml.style.display = 'none';
-            } else {
-                AnoHtml.style.display = 'block';
-                AnoHtml.innerHTML = `${anos < 10 ? `0${anos}` : anos} <br>ano${anos > 1 ? 's' : ''}`;
-            }
-
-            if (meses === 0) {
-                MesHtml.style.display = 'none';
-            } else {
-                MesHtml.style.display = 'block';
-                MesHtml.innerHTML = `${meses < 10 ? `0${meses}`: meses} <br>mês${meses > 1 ? 'es' : ''}`;
-            }
-
-            if (dias === 0) {
-                DiaHtml.style.display = 'none';
-            } else {
-                DiaHtml.style.display = 'block';
-                DiaHtml.innerHTML = `${dias < 10 ? `0${dias}` : dias} <br>dia${dias > 1 ? 's' : ''}`;
-            }
-    
-            if (horas === 0){
-                HoraHtml.style.display = 'none';
-            } else {
-                HoraHtml.style.display = 'block';
-                HoraHtml.innerHTML = `${horas < 10 ? `0${horas}` : horas} <br>hora${horas > 1 ? 's' : ''}`;
-            }
-
-            if (minutos === 0){
-                MinutoHtml.style.display = 'none';
-            } else {
-                MinutoHtml.style.display = 'block';
-                MinutoHtml.innerHTML = `${minutos < 10 ? `0${minutos}`: minutos} <br>minuto${minutos > 1 ? 's' : ''}`;
-            }
-    
-            if (segundos === 0){
-                SegundoHtml.style.display = 'none';
-            } else {
-                SegundoHtml.style.display = 'block';
-                SegundoHtml.innerHTML = `${segundos < 10 ? `0${segundos}` : segundos} <br>segundo${segundos > 1 ? 's' : ''}`;
-            }
-        }
-        setInterval(atualizarContador, 1000);
-        atualizarContador();
-        // Carrossel de imagens
-        let currentIndex = 0;
-        const imagens = document.querySelectorAll(".slides img");
-        function mudarSlide() {
-            imagens[currentIndex].classList.remove("active");
-            currentIndex = (currentIndex + 1) % imagens.length;
-            imagens[currentIndex].classList.add("active");
-        }
-        setInterval(mudarSlide, 3000);
-    
-    </script>
+        
+    </div> 
 </body>
+
+<script src="script.js"></script>
 </html>
