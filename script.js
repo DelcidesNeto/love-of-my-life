@@ -190,9 +190,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 audioElement.classList.toggle('visible');
                 
                 // Pausa o áudio se estiver sendo escondido
-                if (!audioElement.classList.contains('visible')) {
-                    audioElement.pause();
-                }
+                // if (!audioElement.classList.contains('visible')) {
+                //     audioElement.pause();
+                // }
             }
         });
     });
@@ -204,3 +204,38 @@ document.addEventListener('DOMContentLoaded', function(){
         audio.volume = 0.15;
     });
 })
+document.addEventListener('DOMContentLoaded', function() {
+    // Seleciona o botão que abrirá a carta (substitua 'seu-botao' pelo ID ou classe do seu botão)
+    const botaoAbrirCarta = document.querySelector('.botao-ver-poema'); // Usando a classe .quadrado como exemplo
+    const cartaOverlay = document.querySelector('.carta-overlay');
+    const carta = document.querySelector('.carta');
+    const botaoFechar = document.querySelector('.fechar-carta');
+    
+    // Abre a carta quando o botão for clicado
+    botaoAbrirCarta.addEventListener('click', function() {
+        cartaOverlay.style.display = 'flex';
+        // Pequeno atraso para a animação de abertura
+        setTimeout(() => {
+            carta.classList.add('aberta');
+        }, 100);
+    });
+    
+    // Fecha a carta quando o botão de fechar for clicado
+    botaoFechar.addEventListener('click', function() {
+        carta.classList.remove('aberta');
+        // Espera a animação de fechamento terminar antes de esconder o overlay
+        setTimeout(() => {
+            cartaOverlay.style.display = 'none';
+        }, 1000);
+    });
+    
+    // Também fecha a carta quando clicar fora dela
+    cartaOverlay.addEventListener('click', function(e) {
+        if (e.target === cartaOverlay) {
+            carta.classList.remove('aberta');
+            setTimeout(() => {
+                cartaOverlay.style.display = 'none';
+            }, 1000);
+        }
+    });
+});

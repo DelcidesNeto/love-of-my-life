@@ -174,7 +174,9 @@ strong{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 30px;    
+    margin-top: 30px;  
+    background-color: #1a0029;
+    padding: 20px;  
 }
 .musicas-que-me-lembram-ela h1{
     margin-bottom: 5px;
@@ -221,4 +223,126 @@ audio.visible {
     position: relative;
     opacity: 1;
     pointer-events: auto;
+}
+.container-poema{
+    margin: 30px 0px;
+}
+.botao-ver-poema{
+    padding: 10px;
+    border-radius: 30px;
+    width: 200px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+}
+.botao-ver-poema:hover{
+    background-color: #ff4d6d;
+    color: white;
+}
+
+/* Overlay para escurecer o fundo quando a carta estiver aberta */
+.carta-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000000b3;
+    z-index: 1000;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container da carta */
+.carta-container {
+    width: 300px;
+    height: 400px;
+    perspective: 1000px;
+    position: relative;
+}
+
+/* A carta em si */
+.carta {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+}
+
+/* Quando a carta está aberta */
+.carta.aberta {
+    transform: rotateY(180deg);
+}
+
+/* Frente e verso da carta */
+.carta-frente, .carta-verso {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 4px 8px #ff4d6d4d;
+}
+
+.carta-frente {
+    background-color: #ff4d6d;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12z"/><path d="M4 6h16v12H4z"/><path d="M12 11l8-5H4l8 5zm0 1L4 7v10l8-5 8 5V7l-8 5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80px;
+    
+}
+
+.carta-verso {
+    background-color: #fff;
+    color: #333;
+    transform: rotateY(180deg);
+    padding: 20px;
+    overflow-y: auto;
+    text-align: center;
+}
+
+/* Estilo para o poema */
+.poema {
+    font-family: 'Georgia', serif;
+    line-height: 1.6;
+    font-style: oblique;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* Botão para fechar a carta */
+.fechar-carta {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #ff4d6d;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* Animação de entrada da carta */
+@keyframes cartaEntrada {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.carta-container {
+    animation: cartaEntrada 0.5s ease-out;
 }
