@@ -232,11 +232,25 @@ audio.visible {
     border-radius: 30px;
     width: 200px;
     cursor: pointer;
+    margin-top: 20px;
     transition: 0.3s ease-in-out;
 }
+@keyframes SubirDescerBotao {
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(1.1);
+    }
+    100%{
+        transform: scale(1);
+    }
+    
+}
 .botao-ver-poema:hover{
-    background-color: #ff4d6d;
+    background-color: #ff0037bd;
     color: white;
+    animation: SubirDescerBotao 1s ease-in-out infinite;
 }
 
 /* Overlay para escurecer o fundo quando a carta estiver aberta */
@@ -255,7 +269,7 @@ audio.visible {
 
 /* Container da carta */
 .carta-container {
-    width: 350px;
+    width: 385px;
     height: 400px;
     perspective: 1000px;
     position: relative;
@@ -345,4 +359,11 @@ audio.visible {
 
 .carta-container {
     animation: cartaEntrada 0.5s ease-out;
+}
+.voce-me-salvou{
+    margin-top: 20px;
+    text-align: center;
+    background-color: #ffa6002d;
+    padding: 20px;
+    font-weight: bold;
 }
