@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Espera a animação de fechamento terminar antes de esconder o overlay
         setTimeout(() => {
             cartaOverlay.style.display = 'none';
-        }, 1000);
+        }, 2500);
     });
     
     // Também fecha a carta quando clicar fora dela
@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', function() {
             carta.classList.remove('aberta');
             setTimeout(() => {
                 cartaOverlay.style.display = 'none';
-            }, 1000);
+            }, 2500);
         }
     });
 });

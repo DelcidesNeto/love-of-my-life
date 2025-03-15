@@ -288,6 +288,9 @@ audio.visible {
 .carta.aberta {
     transform: rotateY(180deg);
 }
+.carta:not(.aberta) {
+    transition: transform 1s; /* Sem delay ao fechar */
+}
 
 /* Frente e verso da carta */
 .carta-frente, .carta-verso {
