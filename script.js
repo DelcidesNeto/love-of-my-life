@@ -1,4 +1,4 @@
-var TotalDeImagens = [4]
+var TotalDeImagens = [8]
 // Função para criar os corações flutuando
 // Função para criar os corações descendo
 // Função para criar os corações descendo do topo da página
