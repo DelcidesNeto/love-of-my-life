@@ -1,4 +1,4 @@
-var TotalDeImagens = [8]
+var TotalDeImagens = [10]
 // Função para criar os corações flutuando
 // Função para criar os corações descendo
 // Função para criar os corações descendo do topo da página
@@ -142,34 +142,60 @@ function atualizarContador() {
         SegundoHtml.innerHTML = `${segundos < 10 ? `0${segundos}` : segundos} <br>segundo${segundos > 1 ? 's' : ''}`;
     }
 }
+
+
 setInterval(atualizarContador, 1000);
 atualizarContador();
 // Primeiro, vamos criar um array com os nomes das imagens
-const imagePaths = [];
-for (let i = 1; i <= TotalDeImagens[0]; i++) { // Ajuste o número conforme quantidade de imagens
-    imagePaths.push(`images/MyLove${i}.jpg`);
+async function verificarimagem(src) {
+    try {
+        const response = await fetch(src);
+        return response.ok;
+    } catch (error) {
+        return false; // Se der erro, retorna false
+    }
 }
+const imagePaths = [];
+
+async function carregarImagens() {
+    for (let i = 0; i <= TotalDeImagens[0]; i++) { // Ajuste o número conforme quantidade de imagens
+        if (await verificarimagem(`images/MyLove${i+1}.jpg`)){
+            imagePaths.push(`images/MyLove${i+1}.jpg`);
+        } else if (await verificarimagem(`images/MyLove${i+1}.jpeg`)){
+            imagePaths.push(`images/MyLove${i+1}.jpeg`);
+        } else if (await verificarimagem(`images/MyLove${i+1}.png`)){
+            imagePaths.push(`images/MyLove${i+1}.png`);
+        }
+    }
+    CriarSlides()
+}
+carregarImagens()
+console.log(imagePaths);
+
 
 // Criar elementos de imagem dinamicamente
-const slidesContainer = document.querySelector('.slides');
-imagePaths.forEach((path, index) => {
-    const img = document.createElement('img');
-    img.src = path;
-    img.className = index === 0 ? 'active' : '';
-    slidesContainer.appendChild(img);
-});
 
-// Atualizar a referência das imagens para o carrossel
-const imagens = document.querySelectorAll(".slides img");
+function CriarSlides(){
+    const slidesContainer = document.querySelector('.slides');
+    imagePaths.forEach((path, index) => {
+        const img = document.createElement('img');
+        img.src = path;
+        img.className = index === 0 ? 'active' : '';
+        slidesContainer.appendChild(img);
+    });
 
-// Carrossel de imagens
-let currentIndex = 0;
-function mudarSlide() {
-    imagens[currentIndex].classList.remove("active");
-    currentIndex = (currentIndex + 1) % imagens.length;
-    imagens[currentIndex].classList.add("active");
+    // Atualizar a referência das imagens para o carrossel
+    const imagens = document.querySelectorAll(".slides img");
+
+    // Carrossel de imagens
+    let currentIndex = 0;
+    function mudarSlide() {
+        imagens[currentIndex].classList.remove("active");
+        currentIndex = (currentIndex + 1) % imagens.length;
+        imagens[currentIndex].classList.add("active");
+    }
+    setInterval(mudarSlide, 3000);
 }
-
 
 document.addEventListener('DOMContentLoaded', function() {
     // Seleciona todos os parágrafos dentro de elementos com classe 'musicas'
@@ -197,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-setInterval(mudarSlide, 3000);
+
 
 document.addEventListener('DOMContentLoaded', function(){
     document.querySelectorAll('audio').forEach(function(audio){
