@@ -170,7 +170,6 @@ async function carregarImagens() {
     CriarSlides()
 }
 carregarImagens()
-console.log(imagePaths);
 
 
 // Criar elementos de imagem dinamicamente
